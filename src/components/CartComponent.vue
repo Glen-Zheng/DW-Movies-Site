@@ -6,12 +6,12 @@ const store = useStore();
 
 <template>
   <div id="background">
-    <p v-if="store.cart.length == 0" id="notice">
-      You have nothing in your cart.
-    </p>
+    <button @click="store.emptyCart()" id="clear">Clear Cart</button>
+    <p v-if="store.cart.length == 0" id="notice">You have nothing in your cart.</p>
     <div id="cart-movies">
-      <div v-for="(poster, index) in store.cart" id="posters-container">
-        <img :src="`https://image.tmdb.org/t/p/w500${poster}`" />
+      <div v-for="(item, index) in store.cart" id="posters-container">
+        <p id="titles">{{ item.title }}</p>
+        <img :src="`https://image.tmdb.org/t/p/w500${item.poster}`" />
         <button id="remove" @click="store.removeFromCart(index)">-</button>
       </div>
     </div>
@@ -27,7 +27,7 @@ const store = useStore();
 }
 
 #background {
-  padding-top: 15%;
+  padding-top: 2%;
   background-color: #0c062a;
   z-index: -1;
   width: 100vw;
@@ -50,6 +50,13 @@ const store = useStore();
   color: rgb(0, 0, 0);
 }
 
+#clear {
+  position: relative;
+  top: 360px;
+  padding-top: 0;
+  /* left: 45%; */
+}
+
 #cart-movies {
   display: flex;
   justify-content: start;
@@ -62,6 +69,14 @@ const store = useStore();
   margin-left: 5%;
 }
 
+#titles {
+  color: white;
+  width: 200px;
+  text-align: none;
+  position: relative;
+  left: 17px;
+}
+
 img {
   aspect-ratio: 2/3;
   width: 12rem;
@@ -69,7 +84,6 @@ img {
   border: 2px outset rgb(136, 216, 25);
   z-index: 1;
   margin: 0rem 1rem 2rem 1rem;
-  cursor: pointer;
 }
 
 #remove:hover {
@@ -78,8 +92,14 @@ img {
   transition-duration: 0.7s;
 }
 
-img:hover {
-  opacity: 0.7;
-  transition-duration: 0.4s;
+@media (width<=1280px) {
+  #background {
+    padding-top: 15%;
+    background-color: #0c062a;
+    z-index: -1;
+    width: 100vw;
+    height: 100%;
+    min-height: 100%;
+  }
 }
 </style>

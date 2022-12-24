@@ -15,15 +15,14 @@ let cost = store.cart.length;
   <div>
     <div id="title-container">
       <h1 id="title" class="typewriter">Checkout</h1>
-      <RouterLink id="cart" :to="{ name: 'Cart' }"><font-awesome-icon id="cart-img"
-          icon="fa-solid fa-circle-arrow-left" /></RouterLink>
+      <RouterLink id="cart" :to="{ name: 'Cart' }"
+        ><font-awesome-icon id="cart-img" icon="fa-solid fa-circle-arrow-left"
+      /></RouterLink>
     </div>
-    <p v-if="store.cart.length == 0" id="notice">
-      You have nothing in your cart.
-    </p>
+    <p v-if="store.cart.length == 0" id="notice">You have nothing in your cart.</p>
     <ol>
       <li v-for="item in store.cart">
-        <img id="item" :src="`https://image.tmdb.org/t/p/w500${item}`" />
+        <img id="item" :src="`https://image.tmdb.org/t/p/w500${item.poster}`" />
         <p id="cost">$1</p>
       </li>
     </ol>
@@ -31,10 +30,12 @@ let cost = store.cart.length;
       <h1>Total: ${{ cost }}</h1>
       <label for="card">Card Number: </label>
       <input id="card" type="text" />
-      <button id="place-order" @click="[orderPlaced(), store.emptyCart()]"> Place Order</button>
+      <button id="place-order" @click="[orderPlaced(), store.emptyCart()]">
+        Place Order
+      </button>
       <p v-if="noti">
-        Thank you! You will now get a one-time unique link with the movie(s) to
-        your email. You can purchase more now if you want.
+        Thank you! You will now get a one-time unique link with the movie(s) to your
+        email. You can purchase more now if you want.
       </p>
     </div>
   </div>
@@ -57,13 +58,11 @@ let cost = store.cart.length;
 
 .typewriter {
   overflow: hidden;
-  border-right: .15em solid orange;
+  border-right: 0.15em solid orange;
   white-space: nowrap;
   margin: 0 auto;
-  letter-spacing: .15em;
-  animation:
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
 @keyframes typing {
@@ -77,7 +76,6 @@ let cost = store.cart.length;
 }
 
 @keyframes blink-caret {
-
   from,
   to {
     border-color: transparent;
@@ -87,7 +85,6 @@ let cost = store.cart.length;
     border-color: skyblue;
   }
 }
-
 
 #cart {
   position: absolute;

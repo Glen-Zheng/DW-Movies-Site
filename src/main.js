@@ -11,6 +11,7 @@ import {
   faCircleArrowLeft,
   faHouse,
   faEnvelope,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -28,7 +29,8 @@ library.add(
   faFacebook,
   faEnvelope,
   faTwitter,
-  faInstagram
+  faInstagram,
+  faMagnifyingGlass,
 );
 
 createApp(App)

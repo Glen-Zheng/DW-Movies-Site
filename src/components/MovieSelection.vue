@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useStore } from "../store/index.js";
 import SiteModal from "./SiteModal.vue";
+import axios from "axios";
 
 const showModal = ref(false);
 const selectedId = ref(0);
@@ -16,15 +17,55 @@ const closeModal = () => {
 };
 
 const store = useStore();
-store.moviesOutputted = false;
 if (store.moviesOutputted == false) {
   await store.selection();
   store.outputtedDone();
 }
-console.log(store.pageNum);
+
+async function nextTrendingPage() {
+  store.movieSelection = [];
+  for (let i = 0; i < 3; i++) {
+    let response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day`, {
+      params: {
+        api_key: "da6aeec5bd0d488feeebd8b57deda080",
+        include_adult: false,
+        page: store.pageNum,
+      },
+    });
+    for (let movieData of response.data.results) {
+      let obj = {};
+      obj["id"] = movieData.id;
+      obj["poster"] = movieData.poster_path;
+      store.movieSelection.push(obj);
+    }
+    store.pageNum++;
+  }
+}
+
+async function previousTrendingPage() {
+  store.pageNum -= 6;
+  store.movieSelection = [];
+  for (let i = 0; i < 3; i++) {
+    let response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day`, {
+      params: {
+        api_key: "da6aeec5bd0d488feeebd8b57deda080",
+        include_adult: false,
+        page: store.pageNum,
+      },
+    });
+    for (let movieData of response.data.results) {
+      let obj = {};
+      obj["id"] = movieData.id;
+      obj["poster"] = movieData.poster_path;
+      store.movieSelection.push(obj);
+    }
+    store.pageNum++;
+  }
+}
 </script>
 <template>
   <div id="background-div">
+    <h1 v-if="!store.movieSelection.length">No Results</h1>
     <div id="posters-container">
       <button
         @click="openModal(movie.id)"
@@ -35,8 +76,28 @@ console.log(store.pageNum);
       </button>
     </div>
 
-    <button v-if="store.pageNum > 4" @click="store.previousPage()">back</button>
-    <button @click="store.nextPage()">next</button>
+    <button v-if="store.pageNum > 4 && !store.searched" @click="previousTrendingPage()">
+      back
+    </button>
+    <button
+      v-if="store.movieSelection.length == 60 && !store.searched"
+      @click="nextTrendingPage()"
+    >
+      next
+    </button>
+
+    <button
+      v-if="store.searchPageNum > 1 && store.searched"
+      @click="store.previousSearchPage()"
+    >
+      back
+    </button>
+    <button
+      v-if="store.movieSelection.length == 20 && store.searched"
+      @click="store.nextSearchPage()"
+    >
+      next
+    </button>
 
     <SiteModal v-if="showModal" @toggleModal="closeModal()" :id="selectedId" />
   </div>

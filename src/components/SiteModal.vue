@@ -13,16 +13,13 @@ let runtimeMinutes = ref();
 let specificMovie = ref();
 let credits = ref();
 
-specificMovie.value = await axios.get(
-  `https://api.themoviedb.org/3/movie/${props.id}`,
-  {
-    params: {
-      api_key: "da6aeec5bd0d488feeebd8b57deda080",
-      append_to_response: "videos",
-      include_adult: false,
-    },
-  }
-);
+specificMovie.value = await axios.get(`https://api.themoviedb.org/3/movie/${props.id}`, {
+  params: {
+    api_key: "da6aeec5bd0d488feeebd8b57deda080",
+    append_to_response: "videos",
+    include_adult: false,
+  },
+});
 credits.value = await axios.get(
   `https://api.themoviedb.org/3/movie/${props.id}/credits`,
   {
@@ -50,7 +47,10 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
           />
           <p id="movie-overview">{{ specificMovie.data.overview }}</p>
           <ul id="movie-genre">
-            <li v-for="genre in specificMovie.data.genres">
+            <li
+              v-if="specificMovie.data.genres.length"
+              v-for="genre in specificMovie.data.genres"
+            >
               {{ genre.name }}
             </li>
           </ul>
@@ -61,15 +61,17 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
           <ul>
             <li
               id="movie-cast"
-              v-if="credits.data.cast.length"
               v-for="actor in [0, 1, 2]"
+              v-if="credits.data.cast.length >= 3"
             >
               {{ credits.data.cast[actor].name }}
             </li>
           </ul>
           <button
             id="purchase"
-            @click="store.addToCart(specificMovie.data.poster_path)"
+            @click="
+              store.addToCart(specificMovie.data.poster_path, specificMovie.data.title)
+            "
           >
             Purchase
           </button>
@@ -168,7 +170,7 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
   margin: 0;
   text-align: center;
   margin-bottom: 3%;
-  font-size: 1.285rem;
+  font-size: 1.284rem;
   line-height: 1.25;
 }
 
@@ -217,11 +219,13 @@ ul {
   grid-column: 1/5;
   grid-row: 6/7;
   position: relative;
-  top: 110%;
+  top: 100%;
   width: 15%;
   text-align: center;
   place-self: center;
-  border: 2px solid #a26a01;
+  padding: 3px;
+  box-shadow: 0 4px rgb(199, 58, 58);
+  border-radius: 0.5rem;
   aspect-ratio: 4/1;
   font-family: "Carter One", cursive;
   font-size: 2rem;
@@ -232,19 +236,20 @@ ul {
 }
 
 #purchase:hover {
-  background: rgb(136, 216, 25);
-  transition-duration: 0.2s;
+  background: rgb(3, 0, 8);
 }
 
 #purchase:active {
-  border: 2px solid white;
+  background: rgb(3, 0, 8);
+  box-shadow: 0 3px rgb(87, 4, 4);
+  transform: translateY(2px);
 }
 
-@media (width<=1280px) {
+@media (width<=1300px) {
   .modal-outer-container .modal-inner-container {
     background-color: #f2a515;
     width: 70%;
-    height: 70%;
+    height: 65%;
     position: relative;
     border: 0.1rem solid white;
   }
@@ -282,6 +287,52 @@ ul {
     top: 4.5%;
     font-family: "Lora", serif;
     font-size: 1rem;
+    margin-right: 0.75%;
+  }
+}
+
+@media (width>=1280px) and (width<=1550px) {
+  .modal-outer-container .modal-inner-container {
+    background-color: #f2a515;
+    width: 60%;
+    height: 65%;
+    position: relative;
+    border: 0.1rem solid white;
+  }
+
+  #movie-title {
+    grid-row: 1/2;
+    grid-column: 2/5;
+    justify-self: center;
+    font-family: "Unbounded", cursive;
+    font-size: 2.2rem;
+    text-align: center;
+    text-shadow: 1px 2px #2b5081;
+    margin-top: 3%;
+    margin-bottom: 0.5%;
+  }
+
+  #movie-overview {
+    grid-row: 3/4;
+    grid-column: 2/5;
+    justify-self: center;
+    margin: 0;
+    text-align: center;
+    margin-bottom: 3%;
+    font-size: 1.18rem;
+    line-height: 1.25;
+  }
+
+  #modal-content {
+    display: grid;
+    grid-template-columns: 40% 1fr 1fr 1fr;
+    grid-template-rows: repeat(7, fr);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 4.5%;
+    font-family: "Lora", serif;
+    font-size: 1.08rem;
     margin-right: 0.75%;
   }
 }
