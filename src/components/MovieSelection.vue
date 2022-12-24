@@ -33,10 +33,7 @@ async function nextTrendingPage() {
       },
     });
     for (let movieData of response.data.results) {
-      let obj = {};
-      obj["id"] = movieData.id;
-      obj["poster"] = movieData.poster_path;
-      store.movieSelection.push(obj);
+      store.movieSelection.push({ id: movieData.id, poster: movieData.poster_path });
     }
     store.pageNum++;
   }
@@ -54,10 +51,7 @@ async function previousTrendingPage() {
       },
     });
     for (let movieData of response.data.results) {
-      let obj = {};
-      obj["id"] = movieData.id;
-      obj["poster"] = movieData.poster_path;
-      store.movieSelection.push(obj);
+      store.movieSelection.push({ id: movieData.id, poster: movieData.poster_path });
     }
     store.pageNum++;
   }

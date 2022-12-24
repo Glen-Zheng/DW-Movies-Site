@@ -22,10 +22,7 @@ const search = async () => {
   });
   for (let movieData of response.data.results) {
     if (movieData.poster_path) {
-      let obj = {};
-      obj["id"] = movieData.id;
-      obj["poster"] = movieData.poster_path;
-      store.movieSelection.push(obj);
+      store.movieSelection.push({ id: movieData.id, poster: movieData.poster_path });
     }
   }
 };

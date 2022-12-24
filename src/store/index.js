@@ -27,10 +27,7 @@ export const useStore = defineStore("store", {
           }
         );
         for (let movieData of response.data.results) {
-          let obj = {};
-          obj["id"] = movieData.id;
-          obj["poster"] = movieData.poster_path;
-          this.movieSelection.push(obj);
+          this.movieSelection.push({id:movieData.id, poster:movieData.poster_path});
         }
         this.pageNum++;
       }
@@ -69,10 +66,8 @@ export const useStore = defineStore("store", {
       );
       for (let movieData of response.data.results) {
         if (movieData.poster_path) {
-          let obj = {};
-          obj["id"] = movieData.id;
-          obj["poster"] = movieData.poster_path;
-          this.movieSelection.push(obj);
+          this.movieSelection.push({id:movieData.id, poster:movieData.poster_path});
+
         }
       }
     },
@@ -92,10 +87,7 @@ export const useStore = defineStore("store", {
       );
       for (let movieData of response.data.results) {
         if (movieData.poster_path) {
-          let obj = {};
-          obj["id"] = movieData.id;
-          obj["poster"] = movieData.poster_path;
-          this.movieSelection.push(obj);
+          this.movieSelection.push({id:movieData.id, poster:movieData.poster_path});
         }
       }
     },
