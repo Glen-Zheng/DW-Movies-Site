@@ -65,7 +65,7 @@ async function previousTrendingPage() {
 </script>
 <template>
   <div id="background-div">
-    <h1 v-if="!store.movieSelection.length">No Results</h1>
+    <h1 v-if="!store.movieSelection.length" id="notice">No Results</h1>
     <div id="posters-container">
       <button
         @click="openModal(movie.id)"
@@ -137,6 +137,12 @@ async function previousTrendingPage() {
 .posters:hover {
   opacity: 0.4;
   transition-duration: 0.15s;
+}
+
+#notice {
+  padding-top: 2rem;
+  color: white;
+  font-family: "Henny Penny", cursive;
 }
 
 @media (width <=1280px) and (width > 900px) {
