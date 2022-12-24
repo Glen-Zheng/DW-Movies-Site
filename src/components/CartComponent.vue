@@ -34,6 +34,11 @@ const store = useStore();
   height: 100%;
   min-height: 100%;
 }
+/* :style="[
+      store.movieSelection.length < 8
+        ? { background: '#051e3e', width: '100vw', height: '100vh' }
+        : { background: '#051e3e', width: '100%', height: '100%' },
+    ]" */
 
 #remove {
   margin-bottom: 2rem;

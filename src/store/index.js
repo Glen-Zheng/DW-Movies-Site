@@ -77,7 +77,7 @@ export const useStore = defineStore("store", {
       }
     },
     async previousSearchPage() {
-      this.searchPageNum -= 2;
+      this.searchPageNum--;
       this.movieSelection = [];
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/movie`,

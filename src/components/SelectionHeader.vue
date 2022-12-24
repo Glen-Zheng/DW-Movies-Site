@@ -42,17 +42,7 @@ const search = async () => {
       <font-awesome-icon icon="fa-solid fa-cart-shopping" />
       <span id="num-cart">{{ store.cart.length }}</span>
     </RouterLink>
-    <select id="genre-select">
-      <option>Trending</option>
-      <option>Action</option>
-      <option>Documentary</option>
-      <option>Family</option>
-      <option>History</option>
-      <option>Horror</option>
-      <option>Romance</option>
-      <option>Science Fiction</option>
-      <option>Thriller</option>
-    </select>
+
     <input
       id="search-bar"
       type="text"
@@ -142,20 +132,9 @@ const search = async () => {
   font-size: 0.8rem;
 }
 
-#genre-select {
-  margin-top: 15px;
-  grid-column: 1/2;
-  grid-row: 3/4;
-  aspect-ratio: 15/1;
-  font-size: 2rem;
-  border: 0.2rem solid rgb(247, 255, 19);
-  background: rgb(31, 10, 50);
-  color: white;
-}
-
 #search-bar {
   margin-top: 15px;
-  grid-column: 2/4;
+  grid-column: 1/4;
   grid-row: 3/4;
   width: 95%;
   background: rgb(31, 10, 50);
@@ -166,7 +145,7 @@ const search = async () => {
 
 #search-button {
   margin-top: 15px;
-  grid-column: 2/4;
+  grid-column: 1/4;
   grid-row: 3/4;
   justify-self: end;
   width: 5%;

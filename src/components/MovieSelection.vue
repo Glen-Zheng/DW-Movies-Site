@@ -64,7 +64,25 @@ async function previousTrendingPage() {
 }
 </script>
 <template>
-  <div id="background-div">
+  <div
+    id="background-div"
+    :style="[
+      store.movieSelection.length < 8
+        ? { background: '#051e3e', width: '100vw', height: '100vh' }
+        : { background: '#051e3e', width: '100%', height: '100%' },
+    ]"
+  >
+    <select id="genre-select">
+      <option>Trending</option>
+      <option>Action</option>
+      <option>Documentary</option>
+      <option>Family</option>
+      <option>History</option>
+      <option>Horror</option>
+      <option>Romance</option>
+      <option>Science Fiction</option>
+      <option>Thriller</option>
+    </select>
     <h1 v-if="!store.movieSelection.length" id="notice">No Results</h1>
     <div id="posters-container">
       <button
@@ -104,10 +122,6 @@ async function previousTrendingPage() {
 </template>
 
 <style scoped>
-#background-div {
-  background-color: #051e3e;
-}
-
 #posters-container {
   padding-top: 1.5rem;
 }
@@ -143,6 +157,21 @@ async function previousTrendingPage() {
   padding-top: 2rem;
   color: white;
   font-family: "Henny Penny", cursive;
+}
+
+#genre-select {
+  grid-column: 1/2;
+  grid-row: 3/4;
+  aspect-ratio: 15/1;
+  font-size: 2rem;
+  border: 0.2rem solid rgb(247, 255, 19);
+  background: rgb(31, 10, 50);
+  color: white;
+  display: flex;
+  justify-content: start;
+  position: relative;
+  left: 2rem;
+  top: 0.9rem;
 }
 
 @media (width <=1280px) and (width > 900px) {
