@@ -5,6 +5,8 @@ import Purchase from "../views/Purchase.vue";
 import Cart from "../views/Cart.vue";
 import Checkout from "../views/Checkout.vue";
 import FAQ from "../views/FAQ.vue";
+import Register from "../views/Register.vue";
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const routes = [
   {
@@ -21,6 +23,9 @@ const routes = [
     path: "/Purchase",
     name: "Purchase",
     component: Purchase,
+    // meta: {
+    //   requiresAuth: true,
+    // },
   },
   {
     path: "/Cart",
@@ -37,6 +42,11 @@ const routes = [
     name: "FAQ",
     component: FAQ,
   },
+  {
+    path: "/Register",
+    name: "Register",
+    component: Register,
+  },
 ];
 
 const router = createRouter({
@@ -50,5 +60,29 @@ const router = createRouter({
     });
   },
 });
+
+// const getCurrentUser = () => {
+// return new Promise ((resolve,reject) => {
+//   const removeListener = onAuthStateChanged(
+// getAuth(),
+// (user) => {
+// removeListener();
+// resolve(user);
+// },
+// reject
+//   );
+// });
+// };
+
+// router.beforeEach(async (to, from, next) => {
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     if (await getCurrentUser()) {
+//       next();
+//     }
+//   } else {
+//     alert("you don't have access");
+//     next();
+//   }
+// });
 
 export default router;

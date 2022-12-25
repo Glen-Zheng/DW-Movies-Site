@@ -1,13 +1,15 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
   <div id="header">
-    <RouterLink id="logo" :to="{ name: 'Home' }"><img title="Home"
-        src="../assets/Screenshot_2022-11-30_212145-removebg-preview.png" /></RouterLink>
+    <RouterLink id="logo" :to="{ name: 'Home' }"
+      ><img
+        title="Home"
+        src="../assets/Screenshot_2022-11-30_212145-removebg-preview.png"
+    /></RouterLink>
     <h1 id="title">DW Movies</h1>
     <RouterLink :to="{ name: 'Login' }" custom v-slot="{ navigate }">
-      <button id="login" @click="navigate" role="link">Login</button>
+      <button id="login" @click="navigate" role="link">Login/Register</button>
     </RouterLink>
   </div>
 </template>
@@ -48,11 +50,12 @@
   justify-self: end;
   position: relative;
   right: 5%;
-  width: 45%;
+  width: 40%;
+  min-width: fit-content;
   aspect-ratio: 5/1;
   background-color: rgb(224, 29, 120);
   border-radius: 8px;
-  font-size: 2.5rem;
+  font-size: 2rem;
   cursor: pointer;
 }
 
