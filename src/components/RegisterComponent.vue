@@ -8,6 +8,7 @@ const router = useRouter();
 let email = ref();
 let password = ref();
 const errorNotice = ref();
+let emailAlreadyUsed = ref(false);
 
 const register = async () => {
   try {
@@ -19,18 +20,23 @@ const register = async () => {
     switch (error.code) {
       case "auth/invalid-email":
         errorNotice.value = "Invalid email";
+        emailAlreadyUsed.value = false;
         break;
       case "auth/email-already-in-use":
         errorNotice.value = "Email already in use, please log in";
+        emailAlreadyUsed.value = true;
         break;
       case "auth/weak-password":
         errorNotice.value = "Weak Password. Please make a stronger password";
+        emailAlreadyUsed.value = false;
         break;
       default:
         errorNotice.value = "Error. Invalid email or password";
+        emailAlreadyUsed.value = false;
         break;
     }
   }
+  console.log(emailAlreadyUsed.value);
 };
 </script>
 
@@ -51,7 +57,10 @@ const register = async () => {
       <button type="submit" id="button">Submit</button>
       <br />
       <br />
-      <p v-if="errorNotice" id="error">{{ errorNotice }}</p>
+      <span v-if="errorNotice" id="error">{{ errorNotice }} &nbsp</span>
+      <RouterLink v-if="emailAlreadyUsed" :to="{ name: 'Login' }" id="back-to-login"
+        >Here</RouterLink
+      >
     </form>
   </div>
 </template>
@@ -70,15 +79,8 @@ const register = async () => {
   color: white;
 }
 
+#password,
 #email {
-  width: 25%;
-  aspect-ratio: 9/1;
-  border: 2px outset rgb(7, 82, 7);
-  background-color: darkorange;
-  font-size: 1.5rem;
-}
-
-#password {
   width: 25%;
   aspect-ratio: 9/1;
   border: 2px outset rgb(7, 82, 7);
@@ -110,5 +112,15 @@ const register = async () => {
 #sign-up {
   position: relative;
   top: 30%;
+}
+
+#back-to-login {
+  color: rgb(133, 128, 207);
+  font-size: 1.8rem;
+  text-decoration: none;
+}
+#back-to-login:hover {
+  text-decoration: underline;
+  text-shadow: 0.5px 0.5px orangered;
 }
 </style>
