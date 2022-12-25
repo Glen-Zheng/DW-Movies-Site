@@ -1,11 +1,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import {
-  getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { auth } from "../firebase/index";
 import { useRouter } from "vue-router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
@@ -17,17 +17,18 @@ let isLoggedIn = ref(false);
 let passwordSee = ref("password");
 
 const signIn = async () => {
-  const auth = getAuth();
   try {
     await signInWithEmailAndPassword(auth, email.value, password.value);
     alert("Successfully Signed In!");
-    console.log(auth.currentUser);
+    // console.log(auth.currentUser);
     router.push("/Purchase");
   } catch (error) {
-    console.log(error.code);
     switch (error.code) {
       case "auth/invalid-email":
         errorNotice.value = "Invalid email";
+        break;
+      case "auth/missing-email":
+        errorNotice.value = "Please enter in an email";
         break;
       case "auth/user-not-found":
         errorNotice.value = "No account with that email was found";
@@ -36,7 +37,7 @@ const signIn = async () => {
         errorNotice.value = "Incorrect password";
         break;
       default:
-        errorNotice.value = "Email or password was incorrect";
+        errorNotice.value = "Email or password was invalid";
         break;
     }
   }
@@ -68,7 +69,7 @@ function seePassword() {
 // };
 
 const signInWithGoogle = () => {
-  signInWithPopup(getAuth(), new GoogleAuthProvider());
+  signInWithPopup(auth, new GoogleAuthProvider());
   router.push("/Purchase");
 };
 </script>
@@ -173,6 +174,7 @@ const signInWithGoogle = () => {
   color: rgb(230, 124, 97);
   background: rgb(31, 10, 50);
   border: 0.3rem outset rgb(11, 142, 199);
+  width: 100%;
 }
 
 #register {

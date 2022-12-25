@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/index";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -10,7 +11,7 @@ const errorNotice = ref();
 
 const register = async () => {
   try {
-    await createUserWithEmailAndPassword(getAuth(), email.value, password.value);
+    await createUserWithEmailAndPassword(auth, email.value, password.value);
     alert("Successfully Registered!");
     router.push("/Purchase");
   } catch (error) {
@@ -19,7 +20,7 @@ const register = async () => {
       case "auth/invalid-email":
         errorNotice.value = "Invalid email";
         break;
-      case "email-already-in-use":
+      case "auth/email-already-in-use":
         errorNotice.value = "Email already in use, please log in";
         break;
       case "auth/weak-password":
@@ -43,7 +44,7 @@ const register = async () => {
         <br />
         <br />
         <label class="labels" for="password">Password: </label>
-        <input type="text" placeholder="Password" id="password" v-model="password" />
+        <input type="password" placeholder="Password" id="password" v-model="password" />
         <br />
         <br />
       </div>
@@ -70,7 +71,7 @@ const register = async () => {
 }
 
 #email {
-  width: 20%;
+  width: 25%;
   aspect-ratio: 9/1;
   border: 2px outset rgb(7, 82, 7);
   background-color: darkorange;
@@ -78,7 +79,7 @@ const register = async () => {
 }
 
 #password {
-  width: 20%;
+  width: 25%;
   aspect-ratio: 9/1;
   border: 2px outset rgb(7, 82, 7);
   background-color: darkorange;
