@@ -5,24 +5,26 @@ import { ref } from "vue";
 
 const store = useStore();
 
-let searchItem = ref();
+let searchItem = ref("");
 
 const search = async () => {
-  store.searchPageNum = 1;
-  store.searchItem = searchItem.value;
-  store.searched = true;
-  store.movieSelection = [];
-  const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
-    params: {
-      api_key: "da6aeec5bd0d488feeebd8b57deda080",
-      include_adult: false,
-      query: searchItem.value,
-      page: store.searchPageNum,
-    },
-  });
-  for (let movieData of response.data.results) {
-    if (movieData.poster_path) {
-      store.movieSelection.push({ id: movieData.id, poster: movieData.poster_path });
+  if (searchItem.value.length > 0) {
+    store.searchPageNum = 1;
+    store.searchItem = searchItem.value;
+    store.searched = true;
+    store.movieSelection = [];
+    const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
+      params: {
+        api_key: "da6aeec5bd0d488feeebd8b57deda080",
+        include_adult: false,
+        query: searchItem.value,
+        page: store.searchPageNum,
+      },
+    });
+    for (let movieData of response.data.results) {
+      if (movieData.poster_path) {
+        store.movieSelection.push({ id: movieData.id, poster: movieData.poster_path });
+      }
     }
   }
 };

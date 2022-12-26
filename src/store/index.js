@@ -15,6 +15,8 @@ export const useStore = defineStore("store", {
   },
   actions: {
     async selection() {
+      this.searched = false;
+      this.movieSelection = [];
       for (let i = 0; i < 3; i++) {
         let response = await axios.get(
           `https://api.themoviedb.org/3/trending/movie/day`,

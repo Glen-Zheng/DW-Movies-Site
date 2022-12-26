@@ -3,6 +3,8 @@ import { ref } from "vue";
 import { useStore } from "../store/index.js";
 import SiteModal from "./SiteModal.vue";
 import axios from "axios";
+import { firestore } from "../firebase/index";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
 const showModal = ref(false);
 const selectedId = ref(0);
@@ -33,7 +35,10 @@ async function nextTrendingPage() {
       },
     });
     for (let movieData of response.data.results) {
-      store.movieSelection.push({ id: movieData.id, poster: movieData.poster_path });
+      store.movieSelection.push({
+        id: movieData.id,
+        poster: movieData.poster_path,
+      });
     }
     store.pageNum++;
   }
@@ -51,11 +56,34 @@ async function previousTrendingPage() {
       },
     });
     for (let movieData of response.data.results) {
-      store.movieSelection.push({ id: movieData.id, poster: movieData.poster_path });
+      store.movieSelection.push({
+        id: movieData.id,
+        poster: movieData.poster_path,
+      });
     }
     store.pageNum++;
   }
 }
+
+const chooseGenre = async () => {
+  store.pageNum = 1;
+  await store.selection();
+};
+
+const addMovies = async () => {
+  // const docRef = await addDoc(collection(firestore, "users"), {
+  //   first: "Ada",
+  //   last: "Lovelace",
+  //   born: 1815,
+  // });
+  // console.log("Document written with ID: ", docRef.id);
+  // let response = await setDoc(doc(firestore, "cities", "LA"), {
+  //   name: "Los Angeles",
+  //   state: "CA",
+  //   country: "USA",
+  // });
+  // console.log(response);
+};
 </script>
 <template>
   <div
@@ -66,7 +94,8 @@ async function previousTrendingPage() {
         : { background: '#051e3e', width: '100%', height: '100%' },
     ]"
   >
-    <select id="genre-select">
+    <select id="genre-select" @change="[chooseGenre(), addMovies()]">
+      <option disabled selected value>Select Genre</option>
       <option>Trending</option>
       <option>Action</option>
       <option>Documentary</option>

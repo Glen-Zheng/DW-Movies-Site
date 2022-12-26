@@ -177,8 +177,7 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
 #movie-genre {
   grid-row: 4/5;
   grid-column: 2/3;
-  justify-self: center;
-  align-self: end;
+  place-self: center;
 }
 
 #movie-title {
