@@ -1,5 +1,7 @@
 import axios from "axios";
 import { defineStore } from "pinia";
+import { firestore } from "../firebase/index.js";
+import { collection, getDocs } from "firebase/firestore";
 
 export const useStore = defineStore("store", {
   state: () => {
@@ -29,7 +31,10 @@ export const useStore = defineStore("store", {
           }
         );
         for (let movieData of response.data.results) {
-          this.movieSelection.push({id:movieData.id, poster:movieData.poster_path});
+          this.movieSelection.push({
+            id: movieData.id,
+            poster: movieData.poster_path,
+          });
         }
         this.pageNum++;
       }
@@ -68,8 +73,10 @@ export const useStore = defineStore("store", {
       );
       for (let movieData of response.data.results) {
         if (movieData.poster_path) {
-          this.movieSelection.push({id:movieData.id, poster:movieData.poster_path});
-
+          this.movieSelection.push({
+            id: movieData.id,
+            poster: movieData.poster_path,
+          });
         }
       }
     },
@@ -89,8 +96,111 @@ export const useStore = defineStore("store", {
       );
       for (let movieData of response.data.results) {
         if (movieData.poster_path) {
-          this.movieSelection.push({id:movieData.id, poster:movieData.poster_path});
+          this.movieSelection.push({
+            id: movieData.id,
+            poster: movieData.poster_path,
+          });
         }
+      }
+    },
+    async chooseGenre(genre) {
+      //done using the firebase docs, https://firebase.google.com/docs/firestore/query-data/get-data in the "get all documents in a collection"
+      this.pageNum = 1;
+      this.movieSelection = [];
+      switch (genre) {
+        case "trending":
+          this.selection();
+          break;
+        case "action":
+          const action = await getDocs(collection(firestore, "Action"));
+          action.forEach((doc) => {
+            if (doc.data().poster) {
+              this.movieSelection.push({
+                id: doc.data().id,
+                poster: doc.data().poster,
+              });
+            }
+          });
+          break;
+        case "documentary":
+          const documentary = await getDocs(
+            collection(firestore, "Documentary")
+          );
+          documentary.forEach((doc) => {
+            if (doc.data().poster) {
+              this.movieSelection.push({
+                id: doc.data().id,
+                poster: doc.data().poster,
+              });
+            }
+          });
+          break;
+        case "family":
+          const family = await getDocs(collection(firestore, "Family"));
+          family.forEach((doc) => {
+            if (doc.data().poster) {
+              this.movieSelection.push({
+                id: doc.data().id,
+                poster: doc.data().poster,
+              });
+            }
+          });
+          break;
+        case "history":
+          const history = await getDocs(collection(firestore, "History"));
+          history.forEach((doc) => {
+            if (doc.data().poster) {
+              this.movieSelection.push({
+                id: doc.data().id,
+                poster: doc.data().poster,
+              });
+            }
+          });
+          break;
+        case "horror":
+          const horror = await getDocs(collection(firestore, "Horror"));
+          horror.forEach((doc) => {
+            if (doc.data().poster) {
+              this.movieSelection.push({
+                id: doc.data().id,
+                poster: doc.data().poster,
+              });
+            }
+          });
+          break;
+        case "romance":
+          const romance = await getDocs(collection(firestore, "Romance"));
+          romance.forEach((doc) => {
+            if (doc.data().poster) {
+              this.movieSelection.push({
+                id: doc.data().id,
+                poster: doc.data().poster,
+              });
+            }
+          });
+          break;
+        case "scifi":
+          const scifi = await getDocs(collection(firestore, "Science Fiction"));
+          scifi.forEach((doc) => {
+            if (doc.data().poster) {
+              this.movieSelection.push({
+                id: doc.data().id,
+                poster: doc.data().poster,
+              });
+            }
+          });
+          break;
+        case "thriller":
+          const thriller = await getDocs(collection(firestore, "Thriller"));
+          thriller.forEach((doc) => {
+            if (doc.data().poster) {
+              this.movieSelection.push({
+                id: doc.data().id,
+                poster: doc.data().poster,
+              });
+            }
+          });
+          break;
       }
     },
   },

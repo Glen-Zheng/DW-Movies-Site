@@ -5,8 +5,8 @@
     <h1 id="intro">
       Welcome to DW Movies, the most comprehensive, cutting edge streaming site. Here, you
       will will have access to buy movies for cheap and at clean and sharp HD quality.
-      With cheap costs and easy setup, you will be able to start watching the most popular
-      and latest releases, and everything else with ease!
+      With cheap costs and easy setup, you will be able to start watching the most
+      popular, latest released, and any specific movies with ease!
     </h1>
   </div>
 </template>

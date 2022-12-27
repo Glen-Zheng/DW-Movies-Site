@@ -170,7 +170,7 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
   margin: 0;
   text-align: center;
   margin-bottom: 3%;
-  font-size: 1.284rem;
+  font-size: 1.28rem;
   line-height: 1.25;
 }
 

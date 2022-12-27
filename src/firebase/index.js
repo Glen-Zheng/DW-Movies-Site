@@ -19,7 +19,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
-const firestore = getFirestore();
+const firestore = getFirestore(app);
 const storage = getStorage();
 
 export { auth, firestore, storage };
+
+//rules_version = '2';
+// service cloud.firestore {
+//   match /databases/{database}/documents {
+//     match /{document=**} {
+//       allow read, write: if false;
+//     }
+//   }
+// }

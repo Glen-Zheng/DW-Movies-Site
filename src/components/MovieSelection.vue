@@ -3,11 +3,12 @@ import { ref } from "vue";
 import { useStore } from "../store/index.js";
 import SiteModal from "./SiteModal.vue";
 import axios from "axios";
-import { firestore } from "../firebase/index";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+// import { firestore } from "../firebase/index.js";
+// import { collection, addDoc } from "firebase/firestore";
 
 const showModal = ref(false);
 const selectedId = ref(0);
+let genre = ref();
 
 const openModal = (id) => {
   showModal.value = true;
@@ -65,46 +66,51 @@ async function previousTrendingPage() {
   }
 }
 
-const chooseGenre = async () => {
-  store.pageNum = 1;
-  await store.selection();
-};
-
-const addMovies = async () => {
-  // const docRef = await addDoc(collection(firestore, "users"), {
-  //   first: "Ada",
-  //   last: "Lovelace",
-  //   born: 1815,
-  // });
-  // console.log("Document written with ID: ", docRef.id);
-  // let response = await setDoc(doc(firestore, "cities", "LA"), {
-  //   name: "Los Angeles",
-  //   state: "CA",
-  //   country: "USA",
-  // });
-  // console.log(response);
-};
+// HOW I STORED IT IN FIRESTORE
+// first get the response for that genres movie, one page
+// const addMovies = async () => {
+//   let response = await axios.get(`https://api.themoviedb.org/3/discover/movie`, {
+//     params: {
+//       api_key: "da6aeec5bd0d488feeebd8b57deda080",
+//       include_adult: false,
+//       with_genres: 53,
+//     },
+//   });
+//   use firebase to put it in, used link: https://www.freecodecamp.org/news/how-to-use-the-firebase-database-in-react/#:~:text=To%20add%20data%20to%20Firestore,document%20to%20the%20todos%20collection.
+//   try {
+//     loop to do it for every item in poage
+//     for (let movie of response.data.results) {
+//       add it here ↓ with name: EXAMPLE name thriller
+//       const docRef = await addDoc(collection(firestore, "Thriller"), {
+//         id: movie.id,
+//         poster: movie.poster_path,
+//       });
+//       console.log("Document written with ID: ", docRef.id);
+//     }
+//   } catch (e) {
+//     console.error("Error adding document: ", e);
+//   }
+// };
 </script>
 <template>
   <div
-    id="background-div"
     :style="[
       store.movieSelection.length < 8
         ? { background: '#051e3e', width: '100vw', height: '100vh' }
         : { background: '#051e3e', width: '100%', height: '100%' },
     ]"
   >
-    <select id="genre-select" @change="[chooseGenre(), addMovies()]">
+    <select id="genre-select" @change="store.chooseGenre(genre)" v-model="genre">
       <option disabled selected value>Select Genre</option>
-      <option>Trending</option>
-      <option>Action</option>
-      <option>Documentary</option>
-      <option>Family</option>
-      <option>History</option>
-      <option>Horror</option>
-      <option>Romance</option>
-      <option>Science Fiction</option>
-      <option>Thriller</option>
+      <option value="trending">Trending</option>
+      <option value="action">Action</option>
+      <option value="documentary">Documentary</option>
+      <option value="family">Family</option>
+      <option value="history">History</option>
+      <option value="horror">Horror</option>
+      <option value="romance">Romance</option>
+      <option value="scifi">Science Fiction</option>
+      <option value="thriller">Thriller</option>
     </select>
     <h1 v-if="!store.movieSelection.length" id="notice">No Results</h1>
     <div id="posters-container">
@@ -117,27 +123,34 @@ const addMovies = async () => {
       </button>
     </div>
 
-    <button v-if="store.pageNum > 4 && !store.searched" @click="previousTrendingPage()">
-      back
+    <button
+      class="page-buttons"
+      v-if="store.pageNum > 4 && !store.searched"
+      @click="previousTrendingPage()"
+    >
+      Back
     </button>
     <button
+      class="page-buttons"
       v-if="store.movieSelection.length == 60 && !store.searched"
       @click="nextTrendingPage()"
     >
-      next
+      Next
     </button>
 
     <button
+      class="page-buttons"
       v-if="store.searchPageNum > 1 && store.searched"
       @click="store.previousSearchPage()"
     >
-      back
+      Back
     </button>
     <button
+      class="page-buttons"
       v-if="store.movieSelection.length == 20 && store.searched"
       @click="store.nextSearchPage()"
     >
-      next
+      Next
     </button>
 
     <SiteModal v-if="showModal" @toggleModal="closeModal()" :id="selectedId" />
@@ -195,6 +208,15 @@ const addMovies = async () => {
   position: relative;
   left: 2rem;
   top: 0.9rem;
+}
+
+.page-buttons {
+  width: 50px;
+  font-family: "Roboto Slab", serif;
+  background-color: white;
+  color: rgb(95, 69, 5);
+  border: 2px inset #d98d01;
+  margin-bottom: 2px;
 }
 
 @media (width <=1280px) and (width > 900px) {

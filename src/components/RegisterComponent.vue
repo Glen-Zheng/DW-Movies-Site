@@ -16,7 +16,6 @@ const register = async () => {
     alert("Successfully Registered!");
     router.push("/Purchase");
   } catch (error) {
-    console.log(error.code);
     switch (error.code) {
       case "auth/invalid-email":
         errorNotice.value = "Invalid email";
@@ -36,7 +35,6 @@ const register = async () => {
         break;
     }
   }
-  console.log(emailAlreadyUsed.value);
 };
 </script>
 

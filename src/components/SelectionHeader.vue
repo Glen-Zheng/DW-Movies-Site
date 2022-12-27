@@ -23,7 +23,10 @@ const search = async () => {
     });
     for (let movieData of response.data.results) {
       if (movieData.poster_path) {
-        store.movieSelection.push({ id: movieData.id, poster: movieData.poster_path });
+        store.movieSelection.push({
+          id: movieData.id,
+          poster: movieData.poster_path,
+        });
       }
     }
   }
