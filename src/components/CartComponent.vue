@@ -34,11 +34,6 @@ const store = useStore();
   height: 100%;
   min-height: 100%;
 }
-/* :style="[
-      store.movieSelection.length < 8
-        ? { background: '#051e3e', width: '100vw', height: '100vh' }
-        : { background: '#051e3e', width: '100%', height: '100%' },
-    ]" */
 
 #remove {
   margin-bottom: 2rem;
@@ -56,10 +51,16 @@ const store = useStore();
 }
 
 #clear {
-  position: relative;
-  top: 360px;
+  position: absolute;
+  top: 380px;
   padding-top: 0;
-  /* left: 45%; */
+  z-index: 12;
+  left: 49%;
+  font-family: "Roboto Slab", serif;
+  background-color: white;
+  color: rgb(95, 69, 5);
+  border: 2px inset #d98d01;
+  font-weight: bold;
 }
 
 #cart-movies {

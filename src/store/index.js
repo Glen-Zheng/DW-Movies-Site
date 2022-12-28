@@ -105,6 +105,7 @@ export const useStore = defineStore("store", {
     },
     async chooseGenre(genre) {
       //done using the firebase docs, https://firebase.google.com/docs/firestore/query-data/get-data in the "get all documents in a collection"
+      this.searched = false;
       this.pageNum = 1;
       this.movieSelection = [];
       switch (genre) {

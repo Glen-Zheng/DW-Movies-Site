@@ -32,20 +32,30 @@ credits.value = await axios.get(
 runtimeHours.value = Math.floor(specificMovie.value.data.runtime / 60);
 runtimeMinutes.value = specificMovie.value.data.runtime % 60;
 </script>
-
 <template>
   <Teleport to="body">
     <div class="modal-outer-container" @click.self="emits('toggleModal')">
       <div class="modal-inner-container">
         <button id="close-button" @click="emits('toggleModal')">X</button>
-        <div id="modal-content">
-          <h1 id="movie-title">{{ specificMovie.data.title }}</h1>
+        <div
+          id="modal-content"
+          :style="[
+            specificMovie.data.overview.split(' ').length > 120
+              ? { top: '0' }
+              : { top: '4.5%' },
+          ]"
+        >
+          <h1 id="movie-title">
+            {{ specificMovie.data.title }}
+          </h1>
           <p id="movie-tagline">{{ specificMovie.data.tagline }}</p>
           <img
             id="movie-poster"
             :src="`https://image.tmdb.org/t/p/w500${specificMovie.data.poster_path}`"
           />
-          <p id="movie-overview">{{ specificMovie.data.overview }}</p>
+          <p id="movie-overview">
+            {{ specificMovie.data.overview }}
+          </p>
           <ul id="movie-genre">
             <li
               v-if="specificMovie.data.genres.length"
@@ -170,7 +180,7 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
   margin: 0;
   text-align: center;
   margin-bottom: 3%;
-  font-size: 1.28rem;
+  font-size: 1.25rem;
   line-height: 1.25;
 }
 
@@ -188,7 +198,7 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
   font-size: 2.3rem;
   text-align: center;
   text-shadow: 2px 3px #2b5081;
-  margin-top: 3%;
+  /* margin-top: 2%; */
   margin-bottom: 0.5%;
 }
 
@@ -207,7 +217,7 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
 #movie-cast {
   grid-row: 5/6;
   grid-column: 4/5;
-  justify-self: center;
+  place-self: center;
 }
 
 ul {
@@ -218,7 +228,7 @@ ul {
   grid-column: 1/5;
   grid-row: 6/7;
   position: relative;
-  top: 100%;
+  top: 95%;
   width: 15%;
   text-align: center;
   place-self: center;
@@ -244,7 +254,7 @@ ul {
   transform: translateY(2px);
 }
 
-@media (width<=1300px) {
+@media (width<=1280px) {
   .modal-outer-container .modal-inner-container {
     background-color: #f2a515;
     width: 70%;
@@ -261,7 +271,7 @@ ul {
     font-size: 2.15rem;
     text-align: center;
     text-shadow: 1px 2px #2b5081;
-    margin-top: 3%;
+    /* margin-top: 3%; */
     margin-bottom: 0.5%;
   }
 
@@ -290,7 +300,7 @@ ul {
   }
 }
 
-@media (width>=1280px) and (width<=1550px) {
+@media (width>1280px) and (width<=1550px) {
   .modal-outer-container .modal-inner-container {
     background-color: #f2a515;
     width: 60%;
@@ -307,7 +317,7 @@ ul {
     font-size: 2.2rem;
     text-align: center;
     text-shadow: 1px 2px #2b5081;
-    margin-top: 3%;
+    /* margin-top: 3%; */
     margin-bottom: 0.5%;
   }
 
