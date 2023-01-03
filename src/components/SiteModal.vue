@@ -40,7 +40,7 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
         <div
           id="modal-content"
           :style="[
-            specificMovie.data.overview.split(' ').length > 120
+            specificMovie.data.overview.split(' ').length > 130
               ? { top: '0' }
               : { top: '4.5%' },
           ]"

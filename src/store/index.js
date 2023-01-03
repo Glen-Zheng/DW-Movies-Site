@@ -109,99 +109,110 @@ export const useStore = defineStore("store", {
       this.pageNum = 1;
       this.movieSelection = [];
       switch (genre) {
-        case "trending":
+        case "Trending":
           this.selection();
           break;
-        case "action":
-          const action = await getDocs(collection(firestore, "Action"));
-          action.forEach((doc) => {
-            if (doc.data().poster) {
-              this.movieSelection.push({
-                id: doc.data().id,
-                poster: doc.data().poster,
-              });
-            }
-          });
-          break;
-        case "documentary":
-          const documentary = await getDocs(
-            collection(firestore, "Documentary")
-          );
-          documentary.forEach((doc) => {
-            if (doc.data().poster) {
-              this.movieSelection.push({
-                id: doc.data().id,
-                poster: doc.data().poster,
-              });
-            }
-          });
-          break;
-        case "family":
-          const family = await getDocs(collection(firestore, "Family"));
-          family.forEach((doc) => {
-            if (doc.data().poster) {
-              this.movieSelection.push({
-                id: doc.data().id,
-                poster: doc.data().poster,
-              });
-            }
-          });
-          break;
-        case "history":
-          const history = await getDocs(collection(firestore, "History"));
-          history.forEach((doc) => {
-            if (doc.data().poster) {
-              this.movieSelection.push({
-                id: doc.data().id,
-                poster: doc.data().poster,
-              });
-            }
-          });
-          break;
-        case "horror":
-          const horror = await getDocs(collection(firestore, "Horror"));
-          horror.forEach((doc) => {
-            if (doc.data().poster) {
-              this.movieSelection.push({
-                id: doc.data().id,
-                poster: doc.data().poster,
-              });
-            }
-          });
-          break;
-        case "romance":
-          const romance = await getDocs(collection(firestore, "Romance"));
-          romance.forEach((doc) => {
-            if (doc.data().poster) {
-              this.movieSelection.push({
-                id: doc.data().id,
-                poster: doc.data().poster,
-              });
-            }
-          });
-          break;
-        case "scifi":
-          const scifi = await getDocs(collection(firestore, "Science Fiction"));
-          scifi.forEach((doc) => {
-            if (doc.data().poster) {
-              this.movieSelection.push({
-                id: doc.data().id,
-                poster: doc.data().poster,
-              });
-            }
-          });
-          break;
-        case "thriller":
-          const thriller = await getDocs(collection(firestore, "Thriller"));
-          thriller.forEach((doc) => {
-            if (doc.data().poster) {
-              this.movieSelection.push({
-                id: doc.data().id,
-                poster: doc.data().poster,
-              });
-            }
-          });
-          break;
+          default:
+            const genreSelected = await getDocs(collection(firestore, `${genre}`));
+            genreSelected.forEach((doc) => {
+                  if (doc.data().poster) {
+                    this.movieSelection.push({
+                      id: doc.data().id,
+                      poster: doc.data().poster,
+                    });
+                  }
+                });
+                break;
+        // case "Action":
+        //   const action = await getDocs(collection(firestore, "Action"));
+        //   action.forEach((doc) => {
+        //     if (doc.data().poster) {
+        //       this.movieSelection.push({
+        //         id: doc.data().id,
+        //         poster: doc.data().poster,
+        //       });
+        //     }
+        //   });
+        //   break;
+        // case "Documentary":
+        //   const documentary = await getDocs(
+        //     collection(firestore, "Documentary")
+        //   );
+        //   documentary.forEach((doc) => {
+        //     if (doc.data().poster) {
+        //       this.movieSelection.push({
+        //         id: doc.data().id,
+        //         poster: doc.data().poster,
+        //       });
+        //     }
+        //   });
+        //   break;
+        // case "Family":
+        //   const family = await getDocs(collection(firestore, "Family"));
+        //   family.forEach((doc) => {
+        //     if (doc.data().poster) {
+        //       this.movieSelection.push({
+        //         id: doc.data().id,
+        //         poster: doc.data().poster,
+        //       });
+        //     }
+        //   });
+        //   break;
+        // case "History":
+        //   const history = await getDocs(collection(firestore, "History"));
+        //   history.forEach((doc) => {
+        //     if (doc.data().poster) {
+        //       this.movieSelection.push({
+        //         id: doc.data().id,
+        //         poster: doc.data().poster,
+        //       });
+        //     }
+        //   });
+        //   break;
+        // case "Horror":
+        //   const horror = await getDocs(collection(firestore, "Horror"));
+        //   horror.forEach((doc) => {
+        //     if (doc.data().poster) {
+        //       this.movieSelection.push({
+        //         id: doc.data().id,
+        //         poster: doc.data().poster,
+        //       });
+        //     }
+        //   });
+        //   break;
+        // case "Romance":
+        //   const romance = await getDocs(collection(firestore, "Romance"));
+        //   romance.forEach((doc) => {
+        //     if (doc.data().poster) {
+        //       this.movieSelection.push({
+        //         id: doc.data().id,
+        //         poster: doc.data().poster,
+        //       });
+        //     }
+        //   });
+        //   break;
+        // case "Scifi":
+        //   const scifi = await getDocs(collection(firestore, "Science Fiction"));
+        //   scifi.forEach((doc) => {
+        //     if (doc.data().poster) {
+        //       this.movieSelection.push({
+        //         id: doc.data().id,
+        //         poster: doc.data().poster,
+        //       });
+        //     }
+        //   });
+        //   break;
+        // case "Thriller":
+        //   const thriller = await getDocs(collection(firestore, "Thriller"));
+        //   thriller.forEach((doc) => {
+        //     if (doc.data().poster) {
+        //       this.movieSelection.push({
+        //         id: doc.data().id,
+        //         poster: doc.data().poster,
+        //       });
+        //     }
+        //   });
+        //   break;
       }
     },
   },

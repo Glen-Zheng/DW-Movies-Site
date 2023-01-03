@@ -141,8 +141,9 @@ const search = async () => {
   width: 95%;
   background: rgb(31, 10, 50);
   color: white;
-  border: 0.2rem solid rgb(247, 255, 19);
+  border: 0.2rem solid #f9c802;
   font-size: 2rem;
+  font-family: "Brawler", serif;
 }
 
 #search-button {
@@ -153,7 +154,7 @@ const search = async () => {
   width: 5%;
   background: #851e3e;
   color: rgb(174, 231, 255);
-  border: 0.2rem solid rgb(247, 255, 19);
+  border: 0.2rem solid #f9c802;
   cursor: pointer;
   font-size: 1.6rem;
 }
@@ -162,6 +163,6 @@ const search = async () => {
   background-color: rgb(31, 10, 50);
   color: rgb(230, 124, 97);
   transition-duration: 0.7s;
-  transform: scale(1.07);
+  transform: scale(1.045);
 }
 </style>

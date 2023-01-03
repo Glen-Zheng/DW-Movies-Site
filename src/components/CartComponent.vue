@@ -81,6 +81,8 @@ const store = useStore();
   text-align: none;
   position: relative;
   left: 17px;
+  font-size: 0.9rem;
+  font-family: "Roboto Slab", serif;
 }
 
 img {

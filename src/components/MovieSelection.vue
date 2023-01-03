@@ -95,22 +95,22 @@ async function previousTrendingPage() {
 <template>
   <div
     :style="[
-      store.movieSelection.length < 8
+      store.movieSelection.length <= 8
         ? { background: '#051e3e', width: '100vw', height: '100vh' }
         : { background: '#051e3e', width: '100%', height: '100%' },
     ]"
   >
     <select id="genre-select" @change="store.chooseGenre(genre)" v-model="genre">
       <option disabled selected value>Select Genre</option>
-      <option value="trending">Trending</option>
-      <option value="action">Action</option>
-      <option value="documentary">Documentary</option>
-      <option value="family">Family</option>
-      <option value="history">History</option>
-      <option value="horror">Horror</option>
-      <option value="romance">Romance</option>
-      <option value="scifi">Science Fiction</option>
-      <option value="thriller">Thriller</option>
+      <option value="Trending">Trending</option>
+      <option value="Action">Action</option>
+      <option value="Documentary">Documentary</option>
+      <option value="Family">Family</option>
+      <option value="History">History</option>
+      <option value="Horror">Horror</option>
+      <option value="Romance">Romance</option>
+      <option value="Science Fiction">Science Fiction</option>
+      <option value="Thriller">Thriller</option>
     </select>
     <h1 v-if="!store.movieSelection.length" id="notice">No Results</h1>
     <div id="posters-container">
@@ -200,7 +200,7 @@ async function previousTrendingPage() {
   grid-row: 3/4;
   aspect-ratio: 15/1;
   font-size: 2rem;
-  border: 0.2rem solid rgb(247, 255, 19);
+  border: 0.2rem solid #f9c802;
   background: rgb(31, 10, 50);
   color: white;
   display: flex;
@@ -208,6 +208,7 @@ async function previousTrendingPage() {
   position: relative;
   left: 2rem;
   top: 0.9rem;
+  font-family: "Brawler", serif;
 }
 
 .page-buttons {

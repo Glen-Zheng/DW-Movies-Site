@@ -57,32 +57,25 @@ let cost = store.cart.length;
 }
 
 .typewriter {
-  overflow: hidden;
-  border-right: 0.15em solid orange;
+  width: 6.1ch;
+  animation: typing 1.7s steps(40), blink 0.38s step-end infinite alternate;
   white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 2em;
   margin: 0 auto;
-  letter-spacing: 0.15em;
-  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
 @keyframes typing {
   from {
     width: 0;
   }
-
-  to {
-    width: 100%;
-  }
 }
 
-@keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-
+@keyframes blink {
   50% {
-    border-color: skyblue;
+    border-color: transparent;
   }
 }
 
@@ -103,6 +96,8 @@ let cost = store.cart.length;
 
 #notice {
   font-size: 3rem;
+  font-family: "Roboto Slab", serif;
+  margin-left: 2rem;
 }
 
 #item {
