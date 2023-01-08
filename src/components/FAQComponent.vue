@@ -18,7 +18,7 @@
         currently a work in progress and will get further scaled up.
       </p>
       <p>
-        <b class="bolded">What is DW Movies©? </b>
+        <b class="bolded">What is DW Movies ©? </b>
         DW (door wood) Movies is an up-and-coming environmentally friendly streaming
         service that strives to provide high quality movies for all.
       </p>

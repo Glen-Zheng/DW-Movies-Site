@@ -146,7 +146,7 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
   aspect-ratio: 2/3;
   max-width: 90%;
   margin-left: 1rem;
-  border: 0.25rem outset #ffffff;
+  border: 0.2rem outset #ffffff;
 }
 
 #movie-revenue {
