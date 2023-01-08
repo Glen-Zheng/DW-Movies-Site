@@ -39,7 +39,7 @@ const search = async () => {
     <RouterLink id="home-link" :to="{ name: 'Home' }"
       ><font-awesome-icon icon="fa-solid fa-house"
     /></RouterLink>
-    <RouterLink id="login-link" :to="{ name: 'Login' }">Login</RouterLink>
+    <RouterLink id="login-link" :to="{ name: 'Login' }">Switch Account</RouterLink>
     <RouterLink id="cart-link" :to="{ name: 'Cart' }">
       <font-awesome-icon icon="fa-solid fa-cart-shopping" />
       <span id="num-cart">{{ store.cart.length }}</span>
