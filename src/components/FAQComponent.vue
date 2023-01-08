@@ -19,8 +19,8 @@
       </p>
       <p>
         <b class="bolded">What is DW Movies©? </b>
-        DW Movies is an up-and-coming environmentally friendly streaming service that
-        strives to provide high quality movies for all.
+        DW (door wood) Movies is an up-and-coming environmentally friendly streaming
+        service that strives to provide high quality movies for all.
       </p>
       <br />
       <p class="inline">
