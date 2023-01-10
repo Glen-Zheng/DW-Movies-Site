@@ -7,32 +7,39 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 let email = ref();
 let password = ref();
+let password2 = ref();
 const errorNotice = ref();
 let emailAlreadyUsed = ref(false);
 
 const register = async () => {
-  try {
-    await createUserWithEmailAndPassword(auth, email.value, password.value);
-    alert("Successfully Registered!");
-    router.push("/Purchase");
-  } catch (error) {
-    switch (error.code) {
-      case "auth/invalid-email":
-        errorNotice.value = "Invalid email";
-        emailAlreadyUsed.value = false;
-        break;
-      case "auth/email-already-in-use":
-        errorNotice.value = "Email already in use, please log in";
-        emailAlreadyUsed.value = true;
-        break;
-      case "auth/weak-password":
-        errorNotice.value = "Weak Password. Please make a stronger password";
-        emailAlreadyUsed.value = false;
-        break;
-      default:
-        errorNotice.value = "Error. Invalid email or password";
-        emailAlreadyUsed.value = false;
-        break;
+  if (password.value != password2.value) {
+    errorNotice.value = "Passwords do not match";
+    emailAlreadyUsed.value = false;
+  }
+  else {
+    try {
+      await createUserWithEmailAndPassword(auth, email.value, password.value);
+      alert("Successfully Registered!");
+      router.push("/Purchase");
+    } catch (error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          errorNotice.value = "Invalid email";
+          emailAlreadyUsed.value = false;
+          break;
+        case "auth/email-already-in-use":
+          errorNotice.value = "Email already in use, please log in";
+          emailAlreadyUsed.value = true;
+          break;
+        case "auth/weak-password":
+          errorNotice.value = "Weak Password. Please make a stronger password";
+          emailAlreadyUsed.value = false;
+          break;
+        default:
+          errorNotice.value = "Error. Invalid email or password";
+          emailAlreadyUsed.value = false;
+          break;
+      }
     }
   }
 };
@@ -51,14 +58,16 @@ const register = async () => {
         <input type="password" placeholder="Password" id="password" v-model="password" />
         <br />
         <br />
+        <label class="labels" for="password2">Re-enter Password: </label>
+        <input type="password" placeholder="Re-enter Password" id="password2" v-model="password2" />
+        <br />
+        <br />
       </div>
       <button type="submit" id="button">Submit</button>
       <br />
       <br />
       <span v-if="errorNotice" id="error">{{ errorNotice }} &nbsp</span>
-      <RouterLink v-if="emailAlreadyUsed" :to="{ name: 'Login' }" id="back-to-login"
-        >Here</RouterLink
-      >
+      <RouterLink v-if="emailAlreadyUsed" :to="{ name: 'Login' }" id="back-to-login">Here</RouterLink>
     </form>
   </div>
 </template>
@@ -78,12 +87,14 @@ const register = async () => {
 }
 
 #password,
-#email {
+#email,
+#password2 {
   width: 25%;
   aspect-ratio: 9/1;
   border: 2px outset rgb(7, 82, 7);
   background-color: darkorange;
   font-size: 1.5rem;
+  box-shadow: 2px 5px black;
 }
 
 #error {
@@ -98,6 +109,7 @@ const register = async () => {
   font-family: fantasy;
   font-size: 2rem;
 }
+
 #questions {
   padding-top: 5%;
 }
@@ -117,6 +129,7 @@ const register = async () => {
   font-size: 1.8rem;
   text-decoration: none;
 }
+
 #back-to-login:hover {
   text-decoration: underline;
   text-shadow: 0.5px 0.5px orangered;
