@@ -98,7 +98,7 @@ const signInWithGoogle = () => {
         <p id="error" v-if="errorNotice">{{ errorNotice }}</p>
         <br />
         <button @click="signInWithGoogle()" class="lower-labels">
-          Sign in with Google
+          Continue with Google
         </button>
         <p id="register">
           Don't have an account?
