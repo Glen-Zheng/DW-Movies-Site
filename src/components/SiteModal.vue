@@ -258,7 +258,7 @@ ul {
   .modal-outer-container .modal-inner-container {
     background-color: #f2a515;
     width: 70%;
-    height: 65%;
+    height: 66.5%;
     position: relative;
     border: 0.1rem solid white;
   }
@@ -268,7 +268,7 @@ ul {
     grid-column: 2/5;
     justify-self: center;
     font-family: "Unbounded", cursive;
-    font-size: 2.15rem;
+    font-size: 2.1rem;
     text-align: center;
     text-shadow: 1px 2px #2b5081;
     /* margin-top: 3%; */

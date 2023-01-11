@@ -61,6 +61,7 @@ const store = useStore();
   color: rgb(95, 69, 5);
   border: 2px inset #d98d01;
   font-weight: bold;
+  cursor: pointer;
 }
 
 #cart-movies {

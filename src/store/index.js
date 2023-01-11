@@ -43,12 +43,8 @@ export const useStore = defineStore("store", {
       this.moviesOutputted = true;
     },
     addToCart(poster, title) {
-      let item = {};
-
       if (!this.cart.some((item) => item.title === title)) {
-        item["title"] = title;
-        item["poster"] = poster;
-        this.cart.push(item);
+        this.cart.push({ title: title, poster: poster });
       }
     },
     removeFromCart(item) {
@@ -112,17 +108,19 @@ export const useStore = defineStore("store", {
         case "Trending":
           this.selection();
           break;
-          default:
-            const genreSelected = await getDocs(collection(firestore, `${genre}`));
-            genreSelected.forEach((doc) => {
-                  if (doc.data().poster) {
-                    this.movieSelection.push({
-                      id: doc.data().id,
-                      poster: doc.data().poster,
-                    });
-                  }
-                });
-                break;
+        default:
+          const genreSelected = await getDocs(
+            collection(firestore, `${genre}`)
+          );
+          genreSelected.forEach((doc) => {
+            if (doc.data().poster) {
+              this.movieSelection.push({
+                id: doc.data().id,
+                poster: doc.data().poster,
+              });
+            }
+          });
+          break;
         // case "Action":
         //   const action = await getDocs(collection(firestore, "Action"));
         //   action.forEach((doc) => {
