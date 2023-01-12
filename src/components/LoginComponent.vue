@@ -19,7 +19,6 @@ const signIn = async () => {
   try {
     await signInWithEmailAndPassword(auth, email.value, password.value);
     alert("Successfully Signed In!");
-    // console.log(auth.currentUser);
     router.push("/Purchase");
   } catch (error) {
     switch (error.code) {
@@ -180,5 +179,14 @@ const signInWithGoogle = async () => {
 .lower-labels {
   font-family: "Lora", serif;
   background: white;
+}
+
+@media (width <=1280px) {
+  #login-container {
+    position: absolute;
+    left: 40%;
+    right: 40%;
+    top: 23%;
+  }
 }
 </style>
