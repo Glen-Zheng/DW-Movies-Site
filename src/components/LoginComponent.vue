@@ -7,7 +7,6 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase/index";
 import { useRouter } from "vue-router";
-import { onAuthStateChanged, signOut } from "firebase/auth";
 
 const router = useRouter();
 let email = ref();
@@ -51,26 +50,10 @@ function seePassword() {
   }
 }
 
-// let auth;
-// onMounted(() => {
-//   auth = getAuth();
-//   onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//       isLoggedIn.value = true;
-//     } else {
-//       isLoggedIn.value = false;
-//     }
-//   });
-// });
-
-// const signOutOfAccount = async () => {
-//   await signOut(auth);
-//   router.push("/");
-// };
-
-const signInWithGoogle = () => {
-  signInWithPopup(auth, new GoogleAuthProvider());
-  router.push("/Purchase");
+const signInWithGoogle = async () => {
+  signInWithPopup(auth, new GoogleAuthProvider()).then(() => {
+    router.push("/Purchase");
+  });
 };
 </script>
 
@@ -83,12 +66,7 @@ const signInWithGoogle = () => {
         <input type="text" placeholder="Email" v-model="email" id="email" />
         <br />
         <label class="labels" for="password">Password </label>
-        <input
-          :type="passwordSee"
-          placeholder="Password"
-          v-model="password"
-          id="password"
-        />
+        <input :type="passwordSee" placeholder="Password" v-model="password" id="password" />
         <br />
         <label class="labels" for="checkbox">See Password</label>
         <input type="checkbox" id="checkbox" @click="seePassword" />
@@ -102,9 +80,7 @@ const signInWithGoogle = () => {
         </button>
         <p id="register">
           Don't have an account?
-          <RouterLink id="register-link" :to="{ name: 'Register' }"
-            >Register Here</RouterLink
-          >
+          <RouterLink id="register-link" :to="{ name: 'Register' }">Register Here</RouterLink>
         </p>
         <button @click="signOutOfAccount" class="lower-labels" v-if="isLoggedIn">
           Sign Out
@@ -200,6 +176,7 @@ const signInWithGoogle = () => {
   color: red;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
+
 .lower-labels {
   font-family: "Lora", serif;
   background: white;

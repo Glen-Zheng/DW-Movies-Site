@@ -3,10 +3,6 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-// Import the functions you need from the SDKs you need
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 const firebaseConfig = {
   apiKey: "AIzaSyAf2x7-HD2AWgQt0wKaEBcnTjHskFd0-uQ",
   authDomain: "ics4u-a4920.firebaseapp.com",
@@ -23,12 +19,3 @@ const firestore = getFirestore(app);
 const storage = getStorage();
 
 export { auth, firestore, storage };
-
-//rules_version = '2';
-// service cloud.firestore {
-//   match /databases/{database}/documents {
-//     match /{document=**} {
-//       allow read, write: if false;
-//     }
-//   }
-// }

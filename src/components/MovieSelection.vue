@@ -3,8 +3,6 @@ import { ref } from "vue";
 import { useStore } from "../store/index.js";
 import SiteModal from "./SiteModal.vue";
 import axios from "axios";
-// import { firestore } from "../firebase/index.js";
-// import { collection, addDoc } from "firebase/firestore";
 
 const showModal = ref(false);
 const selectedId = ref(0);
@@ -65,32 +63,6 @@ async function previousTrendingPage() {
     store.pageNum++;
   }
 }
-
-// HOW I STORED IT IN FIRESTORE
-// first get the response for that genres movie, one page
-// const addMovies = async () => {
-//   let response = await axios.get(`https://api.themoviedb.org/3/discover/movie`, {
-//     params: {
-//       api_key: "da6aeec5bd0d488feeebd8b57deda080",
-//       include_adult: false,
-//       with_genres: 53,
-//     },
-//   });
-//   use firebase to put it in, used link: https://www.freecodecamp.org/news/how-to-use-the-firebase-database-in-react/#:~:text=To%20add%20data%20to%20Firestore,document%20to%20the%20todos%20collection.
-//   try {
-//     loop to do it for every item in poage
-//     for (let movie of response.data.results) {
-//       add it here ↓ with name: EXAMPLE name thriller
-//       const docRef = await addDoc(collection(firestore, "Thriller"), {
-//         id: movie.id,
-//         poster: movie.poster_path,
-//       });
-//       console.log("Document written with ID: ", docRef.id);
-//     }
-//   } catch (e) {
-//     console.error("Error adding document: ", e);
-//   }
-// };
 </script>
 <template>
   <div
