@@ -15,9 +15,8 @@ let cost = store.cart.length;
   <div>
     <div id="title-container">
       <h1 id="title" class="typewriter">Checkout</h1>
-      <RouterLink id="cart" :to="{ name: 'Cart' }"
-        ><font-awesome-icon id="cart-img" icon="fa-solid fa-circle-arrow-left"
-      /></RouterLink>
+      <RouterLink id="cart" :to="{ name: 'Cart' }"><font-awesome-icon id="cart-img"
+          icon="fa-solid fa-circle-arrow-left" /></RouterLink>
     </div>
     <p v-if="store.cart.length == 0" id="notice">You have nothing in your cart.</p>
     <ol>

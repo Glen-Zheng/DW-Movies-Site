@@ -6,7 +6,6 @@ import Cart from "../views/Cart.vue";
 import Checkout from "../views/Checkout.vue";
 import FAQ from "../views/FAQ.vue";
 import Register from "../views/Register.vue";
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const routes = [
   {
@@ -23,9 +22,6 @@ const routes = [
     path: "/Purchase",
     name: "Purchase",
     component: Purchase,
-    // meta: {
-    //   requiresAuth: true,
-    // },
   },
   {
     path: "/Cart",

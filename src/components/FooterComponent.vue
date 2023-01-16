@@ -4,26 +4,20 @@
   <div id="footer">
     <div id="media-links">
       <h2 id="company">DW Movies</h2>
-      <a class="icons" href="mailto:zhengglen200@gmail.com" target="_blank"
-        ><font-awesome-icon title="Email" icon="fa-solid fa-envelope"
-      /></a>
-      <a class="icons" href="https://github.com/Glen-Zheng" target="_blank"
-        ><font-awesome-icon title="Github" icon="fa-brands fa-github"
-      /></a>
-      <a
-        class="icons"
-        href="https://www.facebook.com/profile.php?id=100084738319480"
-        target="_blank"
-        ><font-awesome-icon title="Facebook" icon="fa-brands fa-facebook"
-      /></a>
-      <a class="icons" href="https://twitter.com/zhengglen200" target="_blank"
-        ><font-awesome-icon title="Twitter" icon="fa-brands fa-twitter"
-      /></a>
-      <a class="icons" href="https://www.instagram.com/headstabber/" target="_blank"
-        ><font-awesome-icon title="Instagram" icon="fa-brands fa-instagram"
-      /></a>
+      <a class="icons" href="mailto:zhengglen200@gmail.com" target="_blank"><font-awesome-icon title="Email"
+          icon="fa-solid fa-envelope" /></a>
+      <a class="icons" href="https://github.com/Glen-Zheng" target="_blank"><font-awesome-icon title="Github"
+          icon="fa-brands fa-github" /></a>
+      <a class="icons" href="https://www.facebook.com/profile.php?id=100084738319480" target="_blank"><font-awesome-icon
+          title="Facebook" icon="fa-brands fa-facebook" /></a>
+      <a class="icons" href="https://twitter.com/zhengglen200" target="_blank"><font-awesome-icon title="Twitter"
+          icon="fa-brands fa-twitter" /></a>
+      <a class="icons" href="https://www.instagram.com/headstabber/" target="_blank"><font-awesome-icon
+          title="Instagram" icon="fa-brands fa-instagram" /></a>
     </div>
-    <RouterLink :to="{ name: 'FAQ' }" id="faq-link"><h2 id="faq">FAQ</h2></RouterLink>
+    <RouterLink :to="{ name: 'FAQ' }" id="faq-link">
+      <h2 id="faq">FAQ</h2>
+    </RouterLink>
     <h2 id="legals">© 2022-2023 DW Movies, Inc.</h2>
   </div>
 </template>
@@ -52,9 +46,11 @@
   color: rgb(200, 195, 206);
   font-family: "Henny Penny", cursive;
 }
+
 #faq-link {
   text-decoration: none;
 }
+
 #faq:hover {
   color: rgb(96, 123, 212);
   text-decoration: underline;
@@ -72,6 +68,7 @@
 .icons:hover {
   color: rgb(96, 123, 212);
 }
+
 .icons:active {
   color: rgb(211, 18, 18);
 }

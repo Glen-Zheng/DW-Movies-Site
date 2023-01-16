@@ -2,11 +2,8 @@
 
 <template>
   <div id="header">
-    <RouterLink id="logo" :to="{ name: 'Home' }"
-      ><img
-        title="Home"
-        src="../assets/Screenshot_2022-11-30_212145-removebg-preview.png"
-    /></RouterLink>
+    <RouterLink id="logo" :to="{ name: 'Home' }"><img title="Home"
+        src="../assets/Screenshot_2022-11-30_212145-removebg-preview.png" /></RouterLink>
     <h1 id="title">DW Movies</h1>
     <RouterLink :to="{ name: 'Login' }" custom v-slot="{ navigate }">
       <button id="login" @click="navigate" role="link">Login/Register</button>

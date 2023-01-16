@@ -36,22 +36,14 @@ const search = async () => {
 <template>
   <div id="background">
     <h1 id="main-title">DW Movies</h1>
-    <RouterLink id="home-link" :to="{ name: 'Home' }"
-      ><font-awesome-icon icon="fa-solid fa-house"
-    /></RouterLink>
+    <RouterLink id="home-link" :to="{ name: 'Home' }"><font-awesome-icon icon="fa-solid fa-house" /></RouterLink>
     <RouterLink id="login-link" :to="{ name: 'Login' }">Switch Account</RouterLink>
     <RouterLink id="cart-link" :to="{ name: 'Cart' }">
       <font-awesome-icon icon="fa-solid fa-cart-shopping" />
       <span id="num-cart">{{ store.cart.length }}</span>
     </RouterLink>
 
-    <input
-      id="search-bar"
-      type="text"
-      placeholder="Search Movie"
-      v-model="searchItem"
-      @keyup.enter="search()"
-    />
+    <input id="search-bar" type="text" placeholder="Search Movie" v-model="searchItem" @keyup.enter="search()" />
     <button id="search-button" @click="search()">
       <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
     </button>
