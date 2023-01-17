@@ -12,6 +12,7 @@ let runtimeHours = ref();
 let runtimeMinutes = ref();
 let specificMovie = ref();
 let credits = ref();
+let added = ref();
 
 specificMovie.value = await axios.get(`https://api.themoviedb.org/3/movie/${props.id}`, {
   params: {
@@ -31,27 +32,45 @@ credits.value = await axios.get(
 );
 runtimeHours.value = Math.floor(specificMovie.value.data.runtime / 60);
 runtimeMinutes.value = specificMovie.value.data.runtime % 60;
+
+const addedConfirmation = () => {
+  added.value = true;
+};
 </script>
 <template>
   <Teleport to="body">
-    <div class="modal-outer-container" @click.self="emits('toggleModal')">
+    <div
+      class="modal-outer-container"
+      @click.self="[emits('toggleModal'), (added = false)]"
+    >
       <div class="modal-inner-container">
-        <button id="close-button" @click="emits('toggleModal')">X</button>
-        <div id="modal-content" :style="[
-          specificMovie.data.overview.split(' ').length > 130
-            ? { top: '0' }
-            : { top: '4.5%' },
-        ]">
+        <button id="close-button" @click="[emits('toggleModal'), (added = false)]">
+          X
+        </button>
+        <div
+          id="modal-content"
+          :style="[
+            specificMovie.data.overview.split(' ').length > 130
+              ? { top: '0' }
+              : { top: '4.5%' },
+          ]"
+        >
           <h1 id="movie-title">
             {{ specificMovie.data.title }}
           </h1>
           <p id="movie-tagline">{{ specificMovie.data.tagline }}</p>
-          <img id="movie-poster" :src="`https://image.tmdb.org/t/p/w500${specificMovie.data.poster_path}`" />
+          <img
+            id="movie-poster"
+            :src="`https://image.tmdb.org/t/p/w500${specificMovie.data.poster_path}`"
+          />
           <p id="movie-overview">
             {{ specificMovie.data.overview }}
           </p>
           <ul id="movie-genre">
-            <li v-if="specificMovie.data.genres.length" v-for="genre in specificMovie.data.genres">
+            <li
+              v-if="specificMovie.data.genres.length"
+              v-for="genre in specificMovie.data.genres"
+            >
               {{ genre.name }}
             </li>
           </ul>
@@ -60,15 +79,26 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
           <p id="movie-release">{{ specificMovie.data.release_date }}</p>
           <p id="movie-revenue">Revenue: ${{ specificMovie.data.revenue }}</p>
           <ul>
-            <li id="movie-cast" v-for="actor in [0, 1, 2]" v-if="credits.data.cast.length >= 3">
+            <li
+              id="movie-cast"
+              v-for="actor in [0, 1, 2]"
+              v-if="credits.data.cast.length >= 3"
+            >
               {{ credits.data.cast[actor].name }}
             </li>
           </ul>
-          <button id="purchase" @click="
-  store.addToCart(specificMovie.data.poster_path, specificMovie.data.title)
-          ">
+          <button
+            id="purchase"
+            @click="
+              [
+                store.addToCart(specificMovie.data.poster_path, specificMovie.data.title),
+                addedConfirmation(),
+              ]
+            "
+          >
             Purchase
           </button>
+          <p v-show="added" id="addedNote">Added To Cart!</p>
         </div>
       </div>
     </div>
@@ -182,7 +212,6 @@ runtimeMinutes.value = specificMovie.value.data.runtime % 60;
   font-size: 2.3rem;
   text-align: center;
   text-shadow: 2px 3px #2b5081;
-  /* margin-top: 2%; */
   margin-bottom: 0.5%;
 }
 
@@ -238,7 +267,14 @@ ul {
   transform: translateY(2px);
 }
 
-@media (width<=1280px) {
+#addedNote {
+  position: relative;
+  top: 400%;
+  left: 105%;
+  font-family: "Roboto Slab", serif;
+}
+
+@media (width<=1280px) and (width>=1000px) {
   .modal-outer-container .modal-inner-container {
     background-color: #f2a515;
     width: 70%;
@@ -255,7 +291,6 @@ ul {
     font-size: 2.1rem;
     text-align: center;
     text-shadow: 1px 2px #2b5081;
-    /* margin-top: 3%; */
     margin-bottom: 0.5%;
   }
 
@@ -301,7 +336,6 @@ ul {
     font-size: 2.2rem;
     text-align: center;
     text-shadow: 1px 2px #2b5081;
-    /* margin-top: 3%; */
     margin-bottom: 0.5%;
   }
 
@@ -327,6 +361,205 @@ ul {
     font-family: "Lora", serif;
     font-size: 1.08rem;
     margin-right: 0.75%;
+  }
+}
+
+@media (width>2000px) {
+  .modal-outer-container .modal-inner-container {
+    background-color: #f2a515;
+    width: 45%;
+    height: 60%;
+    position: relative;
+    border: 0.1rem solid white;
+  }
+
+  #movie-title {
+    grid-row: 1/2;
+    grid-column: 2/5;
+    justify-self: center;
+    font-family: "Unbounded", cursive;
+    font-size: 2.2rem;
+    text-align: center;
+    text-shadow: 1px 2px #2b5081;
+    margin-bottom: 0.5%;
+  }
+
+  #movie-overview {
+    grid-row: 3/4;
+    grid-column: 2/5;
+    justify-self: center;
+    margin: 0;
+    text-align: center;
+    margin-bottom: 3%;
+    font-size: 1.18rem;
+    line-height: 1.25;
+  }
+
+  #modal-content {
+    display: grid;
+    grid-template-columns: 40% 1fr 1fr 1fr;
+    grid-template-rows: repeat(7, fr);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 4.5%;
+    font-family: "Lora", serif;
+    font-size: 1.08rem;
+    margin-right: 0.75%;
+  }
+}
+
+@media (width<1000px) and (width>400px) {
+  .modal-outer-container .modal-inner-container {
+    background-color: #f2a515;
+    width: 90%;
+    height: 60%;
+    position: relative;
+    border: 0.1rem solid white;
+  }
+
+  #movie-title {
+    grid-row: 1/2;
+    grid-column: 2/5;
+    justify-self: center;
+    font-family: "Unbounded", cursive;
+    font-size: 2rem;
+    text-align: center;
+    text-shadow: 1px 2px #2b5081;
+    margin-bottom: 0.5%;
+  }
+
+  #movie-overview {
+    grid-row: 3/4;
+    grid-column: 2/5;
+    justify-self: center;
+    margin: 0;
+    text-align: center;
+    margin-bottom: 3%;
+    font-size: 1.4rem;
+    line-height: 1.25;
+  }
+
+  #modal-content {
+    display: grid;
+    grid-template-columns: 40% 1fr 1fr 1fr;
+    grid-template-rows: repeat(7, fr);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 4.5%;
+    font-family: "Lora", serif;
+    font-size: 1.2rem;
+    margin-right: 0.75%;
+  }
+
+  #purchase {
+    grid-column: 1/5;
+    grid-row: 6/7;
+    position: relative;
+    top: 95%;
+    width: 15%;
+    text-align: center;
+    place-self: center;
+    padding: 2px;
+    box-shadow: 0 1px rgb(199, 58, 58);
+    border-radius: 0.5rem;
+    aspect-ratio: 4/1;
+    font-family: "Carter One", cursive;
+    font-size: 2rem;
+    background: #451e3e;
+    color: #c7594b;
+    cursor: pointer;
+    min-width: fit-content;
+  }
+
+  #movie-tagline {
+    grid-row: 2/3;
+    grid-column: 2/5;
+    align-self: start;
+    justify-self: center;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5%;
+    text-shadow: 1px 2px rgb(95, 15, 91);
+  }
+}
+
+@media (width<=400px) {
+  .modal-outer-container .modal-inner-container {
+    background-color: #f2a515;
+    width: 90%;
+    height: 50%;
+    position: relative;
+    border: 0.1rem solid white;
+  }
+
+  #movie-title {
+    grid-row: 1/2;
+    grid-column: 2/5;
+    justify-self: center;
+    font-family: "Unbounded", cursive;
+    font-size: 0.5rem;
+    text-align: center;
+    text-shadow: 1px 2px #2b5081;
+    margin-bottom: 0.5%;
+  }
+
+  #movie-overview {
+    grid-row: 3/4;
+    grid-column: 2/5;
+    justify-self: center;
+    margin: 0;
+    text-align: center;
+    margin-bottom: 3%;
+    font-size: 0.4rem;
+    line-height: 1.25;
+  }
+
+  #modal-content {
+    display: grid;
+    grid-template-columns: 40% 1fr 1fr 1fr;
+    grid-template-rows: repeat(7, fr);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 20%;
+    font-family: "Lora", serif;
+    font-size: 0.3rem;
+    margin-right: 0.75%;
+  }
+
+  #purchase {
+    grid-column: 1/5;
+    grid-row: 6/7;
+    position: relative;
+    top: 95%;
+    width: 15%;
+    text-align: center;
+    place-self: center;
+    padding: 2px;
+    box-shadow: 0 1px rgb(199, 58, 58);
+    border-radius: 0.5rem;
+    aspect-ratio: 4/1;
+    font-family: "Carter One", cursive;
+    font-size: 0.3rem;
+    background: #451e3e;
+    color: #c7594b;
+    cursor: pointer;
+    min-width: fit-content;
+  }
+
+  #movie-tagline {
+    grid-row: 2/3;
+    grid-column: 2/5;
+    align-self: start;
+    justify-self: center;
+    font-size: 0.4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5%;
+    text-shadow: 1px 2px rgb(95, 15, 91);
   }
 }
 </style>

@@ -65,11 +65,13 @@ async function previousTrendingPage() {
 }
 </script>
 <template>
-  <div :style="[
-    store.movieSelection.length <= 8
-      ? { background: '#051e3e', width: '100vw', height: '100vh' }
-      : { background: '#051e3e', width: '100%', height: '100%' },
-  ]">
+  <div
+    :style="[
+      store.movieSelection.length <= 8
+        ? { background: '#051e3e', width: '100vw', height: '100vh' }
+        : { background: '#051e3e', width: '100%', height: '100%' },
+    ]"
+  >
     <select id="genre-select" @change="store.chooseGenre(genre)" v-model="genre">
       <option disabled selected value>Select Genre</option>
       <option value="Trending">Trending</option>
@@ -84,24 +86,42 @@ async function previousTrendingPage() {
     </select>
     <h1 v-if="!store.movieSelection.length" id="notice">No Results</h1>
     <div id="posters-container">
-      <button @click="openModal(movie.id)" class="poster-buttons" v-for="movie in store.movieSelection">
+      <button
+        @click="openModal(movie.id)"
+        class="poster-buttons"
+        v-for="movie in store.movieSelection"
+      >
         <img class="posters" :src="`https://image.tmdb.org/t/p/w500${movie.poster}`" />
       </button>
     </div>
 
-    <button class="page-buttons" v-if="store.pageNum > 4 && !store.searched" @click="previousTrendingPage()">
+    <button
+      class="page-buttons"
+      v-if="store.pageNum > 4 && !store.searched"
+      @click="previousTrendingPage()"
+    >
       Back
     </button>
-    <button class="page-buttons" v-if="store.movieSelection.length == 60 && !store.searched"
-      @click="nextTrendingPage()">
+    <button
+      class="page-buttons"
+      v-if="store.movieSelection.length == 60 && !store.searched"
+      @click="nextTrendingPage()"
+    >
       Next
     </button>
 
-    <button class="page-buttons" v-if="store.searchPageNum > 1 && store.searched" @click="store.previousSearchPage()">
+    <button
+      class="page-buttons"
+      v-if="store.searchPageNum > 1 && store.searched"
+      @click="store.previousSearchPage()"
+    >
       Back
     </button>
-    <button class="page-buttons" v-if="store.movieSelection.length == 20 && store.searched"
-      @click="store.nextSearchPage()">
+    <button
+      class="page-buttons"
+      v-if="store.movieSelection.length == 20 && store.searched"
+      @click="store.nextSearchPage()"
+    >
       Next
     </button>
 
@@ -172,7 +192,7 @@ async function previousTrendingPage() {
   margin-bottom: 2px;
 }
 
-@media (width <=1280px) and (width > 900px) {
+@media (width <=1280px) and (width >=1000px) {
   .posters {
     aspect-ratio: 2/3;
     width: 10rem;
@@ -191,10 +211,10 @@ async function previousTrendingPage() {
   }
 }
 
-@media (width <=900px) {
+@media (width <=1000px) and (width>400px) {
   .posters {
     aspect-ratio: 2/3;
-    width: 6rem;
+    width: 12rem;
     border-radius: 1rem;
     border: 1px outset rgb(136, 216, 25);
   }
@@ -206,7 +226,26 @@ async function previousTrendingPage() {
     padding: 0px;
     cursor: pointer;
     border-radius: 1rem;
-    height: 9.1rem;
+    height: 18rem;
+  }
+}
+
+@media (width<=400px) {
+  .posters {
+    aspect-ratio: 2/3;
+    width: 8rem;
+    border-radius: 1rem;
+    border: 1px outset rgb(136, 216, 25);
+  }
+
+  .poster-buttons {
+    margin: 2rem 0.5rem 2rem 0.5rem;
+    background-color: white;
+    border: none;
+    padding: 0px;
+    cursor: pointer;
+    border-radius: 1rem;
+    height: 12rem;
   }
 }
 </style>
