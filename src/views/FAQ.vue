@@ -7,4 +7,6 @@ import FAQ from "../components/FAQComponent.vue";
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

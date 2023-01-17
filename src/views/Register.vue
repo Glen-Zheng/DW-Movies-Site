@@ -7,4 +7,6 @@ import Register from "../components/RegisterComponent.vue";
   <Header />
   <Register />
 </template>
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -8,4 +8,6 @@ import SelectionHeader from "../components/SelectionHeader.vue";
   <MovieSelection />
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>
