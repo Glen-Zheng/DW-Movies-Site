@@ -317,8 +317,8 @@ ul {
 @media (width>1280px) and (width<=1550px) {
   .modal-outer-container .modal-inner-container {
     background-color: #f2a515;
-    width: 60%;
-    height: 65%;
+    width: 50%;
+    height: 70%;
     position: relative;
     border: 0.1rem solid white;
   }
@@ -359,11 +359,11 @@ ul {
   }
 }
 
-@media (width>2000px) {
+@media (width>1900px) {
   .modal-outer-container .modal-inner-container {
     background-color: #f2a515;
-    width: 45%;
-    height: 60%;
+    width: 48%;
+    height: 95%;
     position: relative;
     border: 0.1rem solid white;
   }
