@@ -58,12 +58,7 @@ const register = async () => {
         <br />
         <br />
         <label class="labels" for="password2">Re-enter Password: </label>
-        <input
-          type="password"
-          placeholder="Re-enter Password"
-          id="password2"
-          v-model="password2"
-        />
+        <input type="password" placeholder="Re-enter Password" id="password2" v-model="password2" />
         <br />
         <br />
       </div>
@@ -71,9 +66,7 @@ const register = async () => {
       <br />
       <br />
       <span v-if="errorNotice" id="error">{{ errorNotice }} &nbsp</span>
-      <RouterLink v-if="emailAlreadyUsed" :to="{ name: 'Login' }" id="back-to-login"
-        >Here</RouterLink
-      >
+      <RouterLink v-if="emailAlreadyUsed" :to="{ name: 'Login' }" id="back-to-login">Here</RouterLink>
     </form>
   </div>
 </template>

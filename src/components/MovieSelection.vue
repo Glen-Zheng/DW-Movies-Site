@@ -65,13 +65,11 @@ async function previousTrendingPage() {
 }
 </script>
 <template>
-  <div
-    :style="[
-      store.movieSelection.length <= 8
-        ? { background: '#051e3e', width: '100vw', height: '100vh' }
-        : { background: '#051e3e', width: '100%', height: '100%' },
-    ]"
-  >
+  <div :style="[
+    store.movieSelection.length <= 8
+      ? { background: '#051e3e', width: '100vw', height: '100vh' }
+      : { background: '#051e3e', width: '100%', height: '100%' },
+  ]">
     <select id="genre-select" @change="store.chooseGenre(genre)" v-model="genre">
       <option disabled selected value>Select Genre</option>
       <option value="Trending">Trending</option>
@@ -86,42 +84,24 @@ async function previousTrendingPage() {
     </select>
     <h1 v-if="!store.movieSelection.length" id="notice">No Results</h1>
     <div id="posters-container">
-      <button
-        @click="openModal(movie.id)"
-        class="poster-buttons"
-        v-for="movie in store.movieSelection"
-      >
+      <button @click="openModal(movie.id)" class="poster-buttons" v-for="movie in store.movieSelection">
         <img class="posters" :src="`https://image.tmdb.org/t/p/w500${movie.poster}`" />
       </button>
     </div>
 
-    <button
-      class="page-buttons"
-      v-if="store.pageNum > 4 && !store.searched"
-      @click="previousTrendingPage()"
-    >
+    <button class="page-buttons" v-if="store.pageNum > 4 && !store.searched" @click="previousTrendingPage()">
       Back
     </button>
-    <button
-      class="page-buttons"
-      v-if="store.movieSelection.length == 60 && !store.searched"
-      @click="nextTrendingPage()"
-    >
+    <button class="page-buttons" v-if="store.movieSelection.length == 60 && !store.searched"
+      @click="nextTrendingPage()">
       Next
     </button>
 
-    <button
-      class="page-buttons"
-      v-if="store.searchPageNum > 1 && store.searched"
-      @click="store.previousSearchPage()"
-    >
+    <button class="page-buttons" v-if="store.searchPageNum > 1 && store.searched" @click="store.previousSearchPage()">
       Back
     </button>
-    <button
-      class="page-buttons"
-      v-if="store.movieSelection.length == 20 && store.searched"
-      @click="store.nextSearchPage()"
-    >
+    <button class="page-buttons" v-if="store.movieSelection.length == 20 && store.searched"
+      @click="store.nextSearchPage()">
       Next
     </button>
 

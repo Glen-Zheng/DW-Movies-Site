@@ -33,44 +33,32 @@ credits.value = await axios.get(
 runtimeHours.value = Math.floor(specificMovie.value.data.runtime / 60);
 runtimeMinutes.value = specificMovie.value.data.runtime % 60;
 
-const addedConfirmation = () => {
-  added.value = true;
-};
+// const addedConfirmation = () => {
+//   added.value = true;
+// };
 </script>
 <template>
   <Teleport to="body">
-    <div
-      class="modal-outer-container"
-      @click.self="[emits('toggleModal'), (added = false)]"
-    >
+    <div class="modal-outer-container" @click.self="emits('toggleModal')">
       <div class="modal-inner-container">
-        <button id="close-button" @click="[emits('toggleModal'), (added = false)]">
+        <button id="close-button" @click="emits('toggleModal')">
           X
         </button>
-        <div
-          id="modal-content"
-          :style="[
-            specificMovie.data.overview.split(' ').length > 130
-              ? { top: '0' }
-              : { top: '4.5%' },
-          ]"
-        >
+        <div id="modal-content" :style="[
+          specificMovie.data.overview.split(' ').length > 130
+            ? { top: '0' }
+            : { top: '4.5%' },
+        ]">
           <h1 id="movie-title">
             {{ specificMovie.data.title }}
           </h1>
           <p id="movie-tagline">{{ specificMovie.data.tagline }}</p>
-          <img
-            id="movie-poster"
-            :src="`https://image.tmdb.org/t/p/w500${specificMovie.data.poster_path}`"
-          />
+          <img id="movie-poster" :src="`https://image.tmdb.org/t/p/w500${specificMovie.data.poster_path}`" />
           <p id="movie-overview">
             {{ specificMovie.data.overview }}
           </p>
           <ul id="movie-genre">
-            <li
-              v-if="specificMovie.data.genres.length"
-              v-for="genre in specificMovie.data.genres"
-            >
+            <li v-if="specificMovie.data.genres.length" v-for="genre in specificMovie.data.genres">
               {{ genre.name }}
             </li>
           </ul>
@@ -79,26 +67,19 @@ const addedConfirmation = () => {
           <p id="movie-release">{{ specificMovie.data.release_date }}</p>
           <p id="movie-revenue">Revenue: ${{ specificMovie.data.revenue }}</p>
           <ul>
-            <li
-              id="movie-cast"
-              v-for="actor in [0, 1, 2]"
-              v-if="credits.data.cast.length >= 3"
-            >
+            <li id="movie-cast" v-for="actor in [0, 1, 2]" v-if="credits.data.cast.length >= 3">
               {{ credits.data.cast[actor].name }}
             </li>
           </ul>
-          <button
-            id="purchase"
-            @click="
-              [
-                store.addToCart(specificMovie.data.poster_path, specificMovie.data.title),
-                addedConfirmation(),
-              ]
-            "
-          >
+          <button id="purchase" @click="
+          
+            store.addToCart(specificMovie.data.poster_path, specificMovie.data.title)
+          
+          ">
             Purchase
           </button>
-          <p v-show="added" id="addedNote">Added To Cart!</p>
+          <p v-show="store.cart.some((item) => item.title === specificMovie.data.title)" id="addedNote">Added To Cart!
+          </p>
         </div>
       </div>
     </div>
@@ -269,8 +250,8 @@ ul {
 
 #addedNote {
   position: relative;
-  top: 400%;
-  left: 105%;
+  top: 190%;
+  left: 200%;
   font-family: "Roboto Slab", serif;
 }
 
@@ -412,7 +393,7 @@ ul {
 @media (width<1000px) and (width>400px) {
   .modal-outer-container .modal-inner-container {
     background-color: #f2a515;
-    width: 90%;
+    width: 80%;
     height: 60%;
     position: relative;
     border: 0.1rem solid white;

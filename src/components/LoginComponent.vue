@@ -65,12 +65,7 @@ const signInWithGoogle = async () => {
         <input type="text" placeholder="Email" v-model="email" id="email" />
         <br />
         <label class="labels" for="password">Password </label>
-        <input
-          :type="passwordSee"
-          placeholder="Password"
-          v-model="password"
-          id="password"
-        />
+        <input :type="passwordSee" placeholder="Password" v-model="password" id="password" />
         <br />
         <label class="labels" for="checkbox">See Password</label>
         <input type="checkbox" id="checkbox" @click="seePassword" />
@@ -84,9 +79,7 @@ const signInWithGoogle = async () => {
         </button>
         <p id="register">
           Don't have an account?
-          <RouterLink id="register-link" :to="{ name: 'Register' }"
-            >Register Here</RouterLink
-          >
+          <RouterLink id="register-link" :to="{ name: 'Register' }">Register Here</RouterLink>
         </p>
         <button @click="signOutOfAccount" class="lower-labels" v-if="isLoggedIn">
           Sign Out
