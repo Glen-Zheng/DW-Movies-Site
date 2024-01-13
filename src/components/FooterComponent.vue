@@ -17,10 +17,10 @@
       <a class="icons" href="https://www.instagram.com/headstabber/" target="_blank"><font-awesome-icon
           title="Instagram" icon="fa-brands fa-instagram" /></a> -->
     </div>
-    <RouterLink :to="{ name: 'FAQ' }" id="faq-link">
+    <!-- <RouterLink :to="{ name: 'FAQ' }" id="faq-link">
       <h2 id="faq">FAQ</h2>
     </RouterLink>
-    <h2 id="legals">© 2022-2023 DW Movies, Inc.</h2>
+    <h2 id="legals">© 2022-2023 DW Movies, Inc.</h2> -->
   </div>
 </template>
 
