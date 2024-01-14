@@ -1,1 +1,4 @@
-This is the culmination of the previous movie sites. This site is called DW Movies will use firebase and will be a fully self supporting site, that allows registration and more. Thanks.
+This is mymovie e-commerce website, I hope you enjoy. 
+
+https://ics4u-a4920.web.app/
+
